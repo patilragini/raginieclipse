@@ -1,40 +1,17 @@
 package com.bridgelabz.programs;
-
-import java.util.*;
-
-//import com.bridgelabz.util.Utility;
+import java.util.Scanner;
+import com.bridgelabz.util.*;
 
 public class SumOfThree {
 	static int flag=0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter nsumber of  ELEMENTS");
+		System.out.print("Enter number of  ELEMENTS");
 		int num = scanner.nextInt();
-		int array[]=new int[num];
-		for(int i=0;i<num;i++){
-			array[i]= scanner.nextInt();
-		}
-		scanner.close();
-		for(int i=0;i<num;i++){
-			for(int j=i;j<num;j++){
-				for(int k=i+2;k<num;k++){
-					int sum=(array[i]+array[j]+array[k]);
-					if(sum==0){
-						System.out.println(" sum of "+array[i]+"+"+array[j]+"+"+array[k]+" is 0");
-						
-					}
-					//else{System.out.println("none of sum is 0");}
-					flag++;
-				}
-				
-			}
-					
-		}
-		if(flag==0){
-		System.out.println("none");}
-				
+		scanner.close(num);
+		int array[]=Utility.createArray(num);
+		Utility.sumOfThreeIsZero(array);
 	}
-	
-//		Utility.arrayTwoDim(num);
+//		Utility.arrayTwoDim(num); function in utility class
 }

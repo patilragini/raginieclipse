@@ -1,4 +1,3 @@
-//1
 /****************************************************************************** 
  *  Purpose: take user name and print 
 				hello <username > how are you?
