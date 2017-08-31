@@ -24,10 +24,10 @@ public class Utility {
 		}
 		System.out.println();
 	}
+	//1
 	public static void printUsername(String name){
-		System.out.println("Enter User name:");
 		System.out.println("  Hello "+name+",How are you?");
-				
+	
 	}
 	static int headctr,tailctr,year;
 	public static void flipCoin(int n){
