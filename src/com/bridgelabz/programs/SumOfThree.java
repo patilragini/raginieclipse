@@ -12,7 +12,7 @@ public class SumOfThree {
 		System.out.print("Enter number of  ELEMENTS");
 		int num = scanner.nextInt();
 
-		int [] array= Utility.createArray(num);
+		int [] array= Utility.createArrayInt(num);
 		Utility.sumOfThreeIsZero(array);
 	}
 }

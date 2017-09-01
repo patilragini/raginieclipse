@@ -6,6 +6,7 @@
 package com.bridgelabz.util;
 import java.util.Arrays;  
 import java.util.Scanner;
+import java.util.*;
 
 public class Utility {
 	
@@ -120,24 +121,62 @@ public class Utility {
         System.out.println("Average  bets           = " + 1.0 * bets / trials);
 	}
 
-	public static  void getcpn(int number){//************
-		/*******************
-		**************
-		**************
-*****
-		
-		**/
+	public static  void getcpn(int number){
 	}
-	
-	//create array of size num and return
-	public static int[] createArray(int num){
+	//Print  array
+	public static void printArrayInt(int [] array){
+		int len=array.length;
+		System.out.println("elements in array are :" );
+		for(int i=0;i<len;i++){
+			System.out.println(array[i]);
+		}
+	}
+	public static void printArrayChar(char [] array){
+		int len=array.length;
+		System.out.println("elements in array are :" );
+		for(int i=0;i<len;i++){
+			System.out.println(array[i]);
+		}
+	}
+	public static void printArrayString(String [] array){
+		int len=array.length;
+		System.out.println("elements in array are :" );
+		for(int i=0;i<len;i++){
+			System.out.println(array[i]);
+		}
+	}
+	//create array of integer of size num and return integer array
+	public static int[] createArrayInt(int num){
 		Scanner scanner = new Scanner(System.in);
 		int array[]=new int[num];
+	    System.out.println("Enter " + num + " values ");
 		for(int i=0;i<num;i++){
 			array[i]= scanner.nextInt();
 		}
 		return array;
 	}
+	//create array of character and return char array 
+		public static char[] createArrayChar(){
+			Scanner scanner=new Scanner(System.in);
+			String word ;
+			System.out.println("enter the string");
+			word=scanner.next();
+	        char crr[]=word.toCharArray();  
+	        return crr; //return char array
+		}
+	//create array of c String and return String array 
+		public static String[] createArrayString(int num){
+				Scanner scanner=new Scanner(System.in);
+				String words[]=new String[num];
+				System.out.println("enter the"+num+" strings");
+				
+				for(int i = 0; i < num; i++)
+		        {
+		            words[i] = scanner.nextLine();
+		        }
+				System.out.println(words[2]);
+		        return words;//return array of words
+			}
 	
 	static int flag=0;
 	public static void sumOfThreeIsZero(int array[] ){
@@ -367,5 +406,115 @@ public class Utility {
     	}
 	
 	
+	public static void binarySearchInt(int [] array,int numFind){
+		int n=array.length;
+		int first  = 0;
+		int last   = n - 1;
+		int middle = (first + last)/2;
+		
+	    while( first <= last )
+	    {
+	      if ( array[middle] < numFind )
+	        first = middle + 1;    
+	      else if ( array[middle] == numFind ) 
+	      {
+	        System.out.println(numFind + " found at location " + (middle + 1) + ". by Binary Seach");
+	        break;
+	      }
+	      else
+	         last = middle - 1;
+	 
+	      middle = (first + last)/2;
+	   }
+	   if ( first > last )
+	      System.out.println(numFind + " is not present in the list.\n ... searching done by binary search");
+	  }
 	
-}		
+	public static void binarySearchChar(char []array,char variable){
+		int n=array.length;
+		int first  = 0;
+		int last   = n - 1;
+		int middle = (first + last)/2;
+		boolean ispresent=false;
+		if (array[first]==variable){
+			System.out.println("found at "+first+"th location");
+			ispresent=true;
+			}
+		else if(array[last] ==variable){
+			System.out.println("found at "+last+"th location");
+			ispresent=true;
+			}
+		
+	    while( first <= last ){
+	      if ( array[middle] != variable )
+	        first = middle + 1;    
+	      else if ( array[middle] == variable ) 
+	      {
+	        System.out.println(variable + " found at location " + (middle + 1) + "th. by Binary Seach");
+	        ispresent=true;
+	        break;
+	      }
+	      else{
+	         last = middle - 1 ;
+	         middle = (first + last)/2;
+	         ispresent=false;
+	         }
+	      
+	   }
+	   if (first == last && ispresent==false)
+	      System.out.println(variable + " is not present in the list.\n ... searching done by binary search");
+	 
+	}
+	
+	public static int[] insertionSortInt(int [] a,int num){
+		int i,x,n=a.length,j;
+		for(i=1;i<=n-1;i++){
+			x=a[i];
+			j=i;
+			while(j>=1 &&a[j-1]>x){
+				a[j]=a[j-1];
+				j--;
+			}
+			a[j]=x;
+		}
+		return a;
+	}
+	
+	public static void  insertionSortString(String [] name){
+		int n=name.length,i,j;
+		String temp;
+		for(i=0;i<n-1;i++){
+			for(j=i+1;j<i;j++){
+				if(name[i].compareTo(name[j])>0) {
+					temp=name[i];
+					name[i]=name[j];
+					name[j]=temp;
+				}
+			}
+
+		}
+	}
+	
+	public static int[] BubbleSortInt(int [] array,int n){
+		int i,j,temp;
+		for(i=1;i<n-1;i++){
+			for(j=1;j<=n-1;j++){
+				if(array[j-1]>array[j]){
+					temp=array[j-1];
+					array[j-1]=array[j];
+					array[j]=temp;
+				}
+			}
+		}
+		return array;
+	}
+	
+	
+}
+		
+		
+		
+		
+		
+		
+		
