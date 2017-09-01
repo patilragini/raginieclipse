@@ -1,17 +1,14 @@
 
 /******************************************************************************
- *  Compilation:  javac -d bin Quadratic.java
- *  Execution:    java -cp bin com.bridgelabz.util.Quadratic 
- *  
- *  Purpose: Determines whether entered  Quadratic equation is imaginary and find roots of equation
+*  Purpose: Determines whether entered  Quadratic equation is imaginary and find roots of equation
  *
  *  @author  ragini patil
  *  @version 1.0
  *  @since   08-08-2017
  *
  ******************************************************************************/
+package com.bridgelabz.programs;
 import com.bridgelabz.util.Utility;
-package com.bridgelabz.util;
 import java.util.Scanner;
 
 public class Quadratic{

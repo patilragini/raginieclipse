@@ -7,6 +7,8 @@
  *
  ******************************************************************************/
 package com.bridgelabz.programs;
+import com.bridgelabz.util.Utility;
+
 import java.util.Scanner;
 import com.bridgelabz.util.Utility;
 

@@ -9,9 +9,9 @@
  *  @since   08-08-2017
  *
  ******************************************************************************/
-package com.bridgelabz.util;
-import com.bridgelabz.util.Utility;
+
 package com.bridgelabz.programs;
+import com.bridgelabz.util.Utility;
 
 public class Payment{
 		public static void main(String args[]){

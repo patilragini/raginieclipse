@@ -6,6 +6,9 @@
  *
  ******************************************************************************/
 package com.bridgelabz.programs;
+
+import com.bridgelabz.util.Utility;
+
 import java.util.Scanner;
 import com.bridgelabz.util.Utility;
 
@@ -15,6 +18,6 @@ public class AnagramCheck{
 		// TODO Auto-generated method stub
 		String str1=scan.next();
 		String str2=scan.next();
-		Utility.anagramChecker(str1,str2))
+		Utility.anagramChecker(str1,str2);
 	}
 }

@@ -12,9 +12,8 @@
  *  could use Integer.toBinaryString(N) instead.
  ******************************************************************************/
  
-import com.bridgelabz.util.Utility;
 package com.bridgelabz.programs;
-
+import com.bridgelabz.util.Utility;
 
 public class Binary { 
     public static void main(String[] args) { 

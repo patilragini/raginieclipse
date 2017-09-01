@@ -38,7 +38,7 @@ public class Utility {
 	}
 	
 	public static void powerOfTwo(int num){
-		for(i=0;i<=num;i++)
+		for(int i=0;i<=num;i++)
 				{			
 				System.out.print(i);
 				System.out.print("\t"+Math.pow(2,i));
@@ -86,16 +86,17 @@ public class Utility {
 	}
 	
 	public static  double harmonic(int n){
-	        float i = 1;
+	        float i = 2;
 	        double mHarmonicNumber = 0;
 	        int mNthNumber = n;
+	        System.out.print(" 1/1.0 ");
 	        while(i <= mNthNumber) {
 	            System.out.print("+ ");
 	            mHarmonicNumber = mHarmonicNumber + (1/i) ;
 	            System.out.print("1/"+i);
 	            i++;
 	        }
-	        return mHarmonicNumber;
+	        return (mHarmonicNumber+1);
 	    }
 	
 	public static void gambler(int stake,int goal,int trials){
@@ -119,7 +120,7 @@ public class Utility {
         System.out.println("Average  bets           = " + 1.0 * bets / trials);
 	}
 
-	public static  double getcpn(int number){//************
+	public static  void getcpn(int number){//************
 		/*******************
 		**************
 		**************
@@ -130,6 +131,7 @@ public class Utility {
 	
 	//create array of size num and return
 	public static int[] createArray(int num){
+		Scanner scanner = new Scanner(System.in);
 		int array[]=new int[num];
 		for(int i=0;i<num;i++){
 			array[i]= scanner.nextInt();
@@ -137,9 +139,9 @@ public class Utility {
 		return array;
 	}
 	
-	static int flag;
+	static int flag=0;
 	public static void sumOfThreeIsZero(int array[] ){
-		int num=array.length();
+		int num=array.length;
 		for(int i=0;i<num;i++){
 			for(int j=i;j<num;j++){
 				for(int k=i+2;k<num;k++){
@@ -160,13 +162,13 @@ public class Utility {
 		}
 	}
 	
-	public static void euclideanDistance(int x,int y){
-		double powx =Math.pow(x,2); 		
+	public static void euclideanDistance(double x,double y){
+		double powx =(double) Math.pow(x,2); 		
 		System.out.println("Power of x="+powx);
-		double powy =Math.pow(y,2); 
-		System.out.println("Power of y="+powy);
+		double powy =(double) Math.pow(y,2); 
+		System.out.print("Power of y="+powy);
 		/* Math.sqrt is mathematical function in lang package for taking square root*/
-		dist =Math.sqrt(powx,powy);  //distance formula.
+		double dist =(double) Math.sqrt(powx+powy);  //distance formula.
 		System.out.println("Distance from ("+x+"," +y+") to (0,0)="+dist);
 		/* Math.pow is mathematical function in lang package for taking power of given number*/
 	}
@@ -174,20 +176,22 @@ public class Utility {
 	public static void stopWatchSimulator(double stopsec){
 		long startTime=System.currentTimeMillis();
 		long total = 0;
-		long stopmilisec=stopsec*1000;
+		long stopmilisec=(long) (stopsec*1000);
 	    for (int i = 0; i < stopmilisec; i++) {
 	      total = total+ i;
 	    }
+	    
 		long stopTime=System.currentTimeMillis();
 		System.out.println(stopTime-startTime+" milliseconds");
 	}
 	 
 	public static void quadratic(int a,int b,int c){
 		int delta=b*b-4*a*c;
+			double r1,r2;
 			if(delta>0){
 				System.out.println("roots are real and unequal");
 				r1=(-b+Math.sqrt(delta)/(2*a));
-				r2=(-b-Math.sqrt(delta)/(2*a));
+				r2 = (-b-Math.sqrt(delta)/(2*a));
 				System.out.println("1st root is "+r1);
 				System.out.println("2nd root is "+r2);
 			}
@@ -201,7 +205,7 @@ public class Utility {
 			}
 	}
 
-	public static void windChill(int temp,int windspeed){
+	public static void windChill(double temp,double windspeed){
 		double a,b,c,windchil=0;		// double variables to store calculations
 		if(temp<=50&& (windspeed<=120 && windspeed>=3)){
 			a=(35.74+0.6215);		//stores addition of double values
@@ -236,7 +240,7 @@ public class Utility {
     } 
 	
 
-	public static void dayOfWeek(int month,int date,int year){
+	public static void dayOfWeek(int date,int month,int year){
 			int y=(year-((14-month)/12));
 			int x=(y+(y/4)-(y/100)+(y/400));
 			int m=(month+12*((14-month)/12)-2);
@@ -274,11 +278,13 @@ public class Utility {
 	public static void temperatureConversion(int tempCel,int tempFar,int choice){
 		switch(choice){
 				//if result=1 then case 1 execute
-			case 1: float ResultFar = (tempCel*9/5)+32;		//formula of celcius to fahrenhite
+			case 1:
+				float ResultFar = (tempCel*9/5)+32;		//formula of celcius to fahrenhite
 				System.out.println(" The" +tempCel+" in celcius is converted to " +ResultFar+ "in Fahrenhite");
 				break;//break come out of switch.
-			case 2: float ResultCel =(tempFar-32)*5/9;		//formula of fahrenhite to celcius 
-				System.out.println(" The" +tempFar+ "in Fahrenhite is converted to " +ResultCel+ "in Celcius");
+			case 2: 
+				float ResultCel =(tempFar-32)*5/9;		//formula of fahrenhite to celcius 
+				System.out.println(" The" +tempFar+ " in Fahrenhite is converted to " +ResultCel+ "in Celcius");
 				break;//break come out of switch.
 			default: System.out.println("invalid entry ");	//if result is not in case,come out of switch print
 		}
@@ -306,8 +312,7 @@ public class Utility {
         // print out the estimate of the square root of c
         System.out.println(t);
 	}
-
-	public static void toBinary(n){
+	public static void toBinary(int n){
 		int power = 1;
         while (power <= n/2) {
             power *= 2;
@@ -326,21 +331,41 @@ public class Utility {
             // next smallest power of 2
             power /= 2;
         }
+        
         System.out.println();
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
-}
+	public static void arrayTwoDim(int rows,int columns){
+		Scanner scanner = new Scanner(System.in);
+		int[][] array = new int[rows][columns];
+		for(int i = 0; i<rows; i++){
+		    for(int j = 0; j<columns; j++){
+		        array[i][j] = scanner.nextInt();;
+		    }
+		}
+		
+		for(int i = 0; i<rows; i++){
+		    for(int j = 0; j<columns; j++) {
+		        System.out.print("  "+array[i][j]);
+		    }
+		    System.out.println();
+		}
+	}
+	
+	
+	public static void factorization(int n){
+		for (int factor = 2; factor*factor <= n; factor++) {
+            // if factor is a factor of n, repeatedly divide it out
+            while (n % factor == 0) {
+                System.out.print(factor + " "); 
+                n = n / factor;
+            }
+        }
+        // if biggest factor occurs only once, n > 1
+        if (n > 1) System.out.println(n);
+        else       System.out.println();
+    	}
+	
+	
+	
+}		

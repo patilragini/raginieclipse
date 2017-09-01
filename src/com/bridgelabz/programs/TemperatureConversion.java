@@ -10,10 +10,9 @@
  *  @since   08-08-2017
  *
  ******************************************************************************/
-package com.bridgelabz.util.*;
+package com.bridgelabz.programs;
 import java.util.Scanner;
 import com.bridgelabz.util.Utility;
-package com.bridgelabz.programs;
 
 
 public class TemperatureConversion{

@@ -13,14 +13,15 @@
  *  @since   12-08-2017
  *
  ******************************************************************************/
-
-import com.bridgelabz.util.Utility;
 package com.bridgelabz.programs;
+import com.bridgelabz.util.Utility;
+
 
 public class Sqrt { 
 	static double number;
     public static void main(String[] args) { 
-		number = Double.parseDouble(args[0]);
+		int number = Integer.parseInt(args[0]);
+		System.out.println("square root of "+number+" is");
 		Utility.sqrt(number);
 	}
 }

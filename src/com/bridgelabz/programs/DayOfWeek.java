@@ -20,6 +20,6 @@ import com.bridgelabz.util.Utility;
 			date=Integer.parseInt(args[0]);
 			month=Integer.parseInt(args[1]);
 			year=Integer.parseInt(args[2]);
-			Utility.dayOfWeek(month,date,year);
+			Utility.dayOfWeek(date,month,year);
 		}
 	}

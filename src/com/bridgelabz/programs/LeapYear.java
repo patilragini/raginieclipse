@@ -5,7 +5,6 @@
  *
  ******************************************************************************/
  package com.bridgelabz.programs;
-
 import com.bridgelabz.util.Utility;
 
 public class LeapYear {
