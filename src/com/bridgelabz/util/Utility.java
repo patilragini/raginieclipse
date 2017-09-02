@@ -4,8 +4,6 @@
  *
  ******************************************************************************/
 package com.bridgelabz.util;
-import java.util.Arrays;  
-import java.util.Scanner;
 import java.util.*;
 
 public class Utility {
@@ -392,6 +390,63 @@ public class Utility {
 	}
 	
 	
+	
+	
+
+	public static <E> ArrayList<E> generateArray(int size,int choice){
+		Scanner scan = new Scanner(System.in);
+		ArrayList<Integer> arr=new ArrayList<>();
+		 for(int i=0;i<size;i++){
+			 arr.add(scan.nextInt());
+		 }
+		 System.out.println(arr);
+		return null;
+		
+	}
+	
+	//2 C ARRAY CREATION GENERIC INT DOUBLE BOOLEAN 
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T arrayCreateGenericTwoDim(int row, int coloumn, int choose) {
+		ArrayList<ArrayList<T>> twoDArray = new ArrayList<ArrayList<T>>();
+		Scanner scan = new Scanner(System.in);
+		for (int i = 0; i < row; i++)
+			twoDArray.add(new ArrayList<T>());
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < coloumn; j++)
+				if (choose == 1)
+					twoDArray.get(i).add((T) Integer.valueOf(scan.nextInt()));
+				else if (choose == 2)
+					twoDArray.get(i).add((T) Double.valueOf(scan.nextDouble()));
+				else
+					twoDArray.get(i).add((T) Boolean.valueOf(scan.nextBoolean()));
+		}
+		return (T) twoDArray;
+	}
+	
+	///generic code of 2 d array display
+	public static <generic> void arrayDisplayTwoDimGeneric(int row, int coloumn,ArrayList<ArrayList<generic>> array) {
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < coloumn; j++){
+					System.out.format("%2d ", array.get(i).get(j));
+				}
+				System.out.println();
+		}
+}
+	
+	///generic code of 1 d array display
+		public static <generic> void arrayDisplayOneDimGeneric(ArrayList<ArrayList<generic>> array,int size) {
+				for (int i = 0; i < size; i++) {
+				System.out.format("%2d ", array.get(i));
+				System.out.println();
+			}
+	}
+	public static <T extends Iterable<T>> void arrayDisplayOneDimGeneric1(T[] list) {
+			for (Object element : list){
+	            System.out.println(element);
+	        }
+	}
+	
 	public static void factorization(int n){
 		for (int factor = 2; factor*factor <= n; factor++) {
             // if factor is a factor of n, repeatedly divide it out
@@ -508,9 +563,70 @@ public class Utility {
 		}
 		return array;
 	}
-	
-	
+	 public <T extends Comparable<T>> void doInsertionSort(T[] input) {
+	        if (input == null) {
+	            throw new RuntimeException("Input array cannot be null");
+	        }
+	        int length = input.length;
+	      
+	        if (length == 1) return;
+	        int i,j;
+	        T temp;
+	        for (i = 1; i < length; i++) {
+	            //Store the current element
+	            temp = input[i]; 
+	        /*    Compare the current element with  the partially sorted group
+	            to see if its in the correct position */
+	            for (j = i; (j > 0 && (temp.compareTo(input[j-1]) < 0)); j--){
+	               /* The current element is not in its correct position in the partially sorted list.
+	                Move the larger item one place to right and make space for the current element*/
+	                input[j] = input[j-1];
+	            }            
+	            /*Found the correct position for the current element
+	            in the partially sorted group. 
+	            So move it to its correct place.*/
+	            input[j] = temp;
+	        }
+	 }	    
+	 /*public <T extends Comparable<T>> void doBubbleSortGeneric(T[] array) {
+	        if (array == null) {
+	            throw new RuntimeException("array array cannot be null");
+	        }
+	        int n = array.length;
+	        if (n == 1) return;
+	        int i,j;
+	        T temp = null;
+	        for(i=1;i<n-1;i++){
+				for(j=1;j<=n-1;j++){
+					if(temp.compareTo(array[j-1])>temp.compareTo(array[j])){
+						temp=array[j-1];
+						array[j-1]=array[j];
+						array[j]=temp;
+					}
+				}
+			}
+	 }*/
+		 public static <E> void doBubbleSortGeneric(E[] unsorted) {
+		        for(int iter =1; iter< unsorted.length; iter++){
+		            for(int inner = 0; inner < (unsorted.length - iter); inner ++){
+		                if((((Comparable) (unsorted[inner])).compareTo(unsorted[inner+1])) > 0){
+		                    E tmp = unsorted[inner];
+		                    unsorted[inner] = unsorted[inner + 1];
+		                    unsorted[inner + 1] = tmp;
+		                }                
+		            }
+		        }
+			
+		 }    
+	 public static <T> void printArray(T[] input) {
+	        for(T elem: input) {
+	            System.out.print(elem);
+	            System.out.print(" ");
+	        }
+	        System.out.println();
+	    }
 }
+
 		
 		
 		
