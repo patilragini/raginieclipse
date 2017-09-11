@@ -10,17 +10,15 @@ import java.util.Scanner;
 
 import com.bridgelabz.util.Utility;
 
-public class BubbleSortInt {
+public class GuessNumber {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] array;
-	    Scanner in = new Scanner(System.in);
-	    System.out.println("Enter number of elements in array");
-	    int num = in.nextInt(); 
-	    array  = Utility.createArrayInt(num);
-	    array =  Utility.BubbleSortInt(array,num);
-	    Utility.printArrayInt(array);
+		Scanner sc=new Scanner(System.in);
+		int max_num=sc.nextInt();
+		System.out.println(" remmember any 1 number between 0 to "+(max_num-1));
+		Utility.guessNumber(0, max_num-1);
+		sc.close();
 	}
-
 }
+

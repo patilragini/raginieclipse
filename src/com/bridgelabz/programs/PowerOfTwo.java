@@ -1,6 +1,6 @@
 /******************************************************************************
  *  
- *  Purpose: take argument n and print tableof power of 2  less than equal to 2^n
+ *  Purpose: take argument n and print table of power of 2  less than equal to 2^n
  *  @author  ragini patil
  *  @version 1.0
  *  @since   12-08-2017

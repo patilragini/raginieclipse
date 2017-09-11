@@ -1,24 +1,21 @@
 /****************************************************************************** 
+ *  Purpose: Factorization of user defined number
  *  @author  Ragini Patil
  *  @version 1.0
- *  @since   01-09-2017
+ *  @since   29-08-2017
  *
  ******************************************************************************/
+
 package com.bridgelabz.programs;
 import com.bridgelabz.util.Utility;
 
-import java.util.Scanner;
-import com.bridgelabz.util.*;
+public class Factor{
 
-public class SumOfThree {
-	static int flag=0;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Enter number of  ELEMENTS");
-		int num = scanner.nextInt();
+		int n = Integer.parseInt(args[0]);
+        System.out.print("The prime factorization of " + n + " is : 1 ");
+        Utility.factorization(n);
+        	}
 
-		int [] array= Utility.createArrayInt(num);
-		Utility.sumOfThreeIsZero(array);
-	}
 }

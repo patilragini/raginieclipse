@@ -4,10 +4,29 @@
  *
  ******************************************************************************/
 package com.bridgelabz.util;
+import java.awt.Container;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+import java.util.ArrayList;
+import javax.lang.model.element.Element;
+import javax.print.attribute.standard.RequestingUserName;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+/**
+ * @author ragini
+ *
+ */
+
 
 public class Utility {
 	
+	/**
+	 * @param int n
+	 * returntype void
+	 */
 	public static void binary(int n) {
 		// set power to the largest power of 2 that is <= n
 		int power = 1;
@@ -119,17 +138,62 @@ public class Utility {
         System.out.println("Average  bets           = " + 1.0 * bets / trials);
 	}
 
-	public static  void getcpn(int number){
+	public static  void getcpn(int nRandoms){
+		int randomCount = 1, randomNo, flag = 0, index = 1;
+		int a[] = new int[nRandoms];
+		a[0] = (int) (nRandoms * Math.random());
+		while (index < nRandoms) {
+			randomNo = (int) (Math.random() * nRandoms);
+			randomCount++;
+			for (int j = 0; j < index; j++) {
+				if (a[j] == randomNo) {
+					flag = 1;
+				}
+			}
+			if (flag == 0) {
+				a[index] = randomNo;
+				index++;
+			}
+			flag = 0;
+		}
+		System.out.println(randomCount);
+		for (int i : a) {
+			System.out.println(i);
+		}
 	}
+	 //function to check prime no
+	/**@author ragini
+	 * @param int n
+	 * @return int number
+	 **/
+    public static int checkPrime(int n) {
+   
+
+    //condition to check if no less than two
+    if (n < 2) { return 0;
+    }
+    
+    //for loop to for checkin prime no
+    for (int factor = 2; factor*factor <= n; factor++) {
+       // if factor divides evenly into n, n is not prime, so break out of loop
+       if (n % factor == 0) {
+           return 0;
+          
+       }
+    } // End of for loop
+    return n;
+ }
 	//Print  array
 	public static void printArrayInt(int [] array){
+
 		int len=array.length;
 		System.out.println("elements in array are :" );
 		for(int i=0;i<len;i++){
 			System.out.println(array[i]);
 		}
 	}
-	public static void printArrayChar(char [] array){
+	
+public static void printArrayChar(char [] array){
 		int len=array.length;
 		System.out.println("elements in array are :" );
 		for(int i=0;i<len;i++){
@@ -253,10 +317,16 @@ public class Utility {
 		}
 		System.out.println("  windspeed ="+windspeed+"\n  temperature ="+temp+"\n   Wind Chill="+windchil);
 	}
-
+	private String replace(String str) {
+		// TODO Auto-generated method stub
+		String nospace=str.replaceAll("\\s","");
+		System.out.println(nospace);
+		return nospace;
+	}
 	public static void anagramChecker(String str1,String str2){
-		String s1 = str1.replaceAll("\\s", "");  
-        String s2 = str2.replaceAll("\\s", "");  
+		Utility u=new Utility();
+		String s1 = u.replace(str1);  
+        String s2 = u.replace(str2);  
         boolean status = true;  
         if (s1.length() != s2.length()) {  
             status = false;  
@@ -276,7 +346,6 @@ public class Utility {
         }  
     } 
 	
-
 	public static void dayOfWeek(int date,int month,int year){
 			int y=(year-((14-month)/12));
 			int x=(y+(y/4)-(y/100)+(y/400));
@@ -349,27 +418,117 @@ public class Utility {
         // print out the estimate of the square root of c
         System.out.println(t);
 	}
-	public static void toBinary(int n){
-		int power = 1;
-        while (power <= n/2) {
-            power *= 2;
-        }
-        // check for presence of powers of 2 in n, from largest to smallest
-        while (power > 0) {
-            // power is not present in n 
-            if (n < power) {
-                System.out.print(0);
-            }
-            // power is present in n, so subtract power from n
-            else {
-                System.out.print(1);
-                n -= power;
-            }
-            // next smallest power of 2
-            power /= 2;
-        }
-        
-        System.out.println();
+
+	
+	public static String ticTacToe() {
+		boolean userTurn = false;
+		int gameArray[][] = new int[3][3];
+		int row, cols;
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				gameArray[i][j] = -1;
+			}
+		}
+		for (int k = 0; k < 9; k++) {
+
+			if (userTurn) {
+				userTurn(gameArray);
+				userTurn = false;
+				printGameArray(gameArray);
+				if (checkWin(gameArray, 0)) {
+					return "You Won";
+				}
+
+			} else {
+				System.out.println("Computer's Turn");
+				computerTurn(gameArray);
+				userTurn = true;
+				printGameArray(gameArray);
+				if (checkWin(gameArray, 1)) {
+					return "Computer Won";
+				}
+
+			}
+
+		}
+
+		return "Match Draw";
+	}
+
+	private static void printGameArray(int[][] gameArray) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (gameArray[i][j] == 0) {
+					System.out.print("| X |");
+				} else if (gameArray[i][j] == 1) {
+					System.out.print("| O |");
+				} else {
+					System.out.print("|   |");
+				}
+			}
+			System.out.println();
+			System.out.println("===============");
+		}
+
+	}
+
+	private static void computerTurn(int[][] gameArray) {
+
+		Random random = new Random();
+		int row = random.nextInt(3);
+		int cols = random.nextInt(3);
+		if (isValidTurn(gameArray, row, cols)) {
+			gameArray[row][cols] = 1;
+		} else {
+			computerTurn(gameArray);
+		}
+
+	}
+
+	private static boolean checkWin(int[][] gameArray, int i) {
+		for (int j = 0; j < 3; j++) {
+			if (gameArray[j][0] == i && gameArray[j][1] == i
+					&& gameArray[j][2] == i) {
+				return true;
+			}
+			if (gameArray[0][j] == i && gameArray[1][j] == i
+					&& gameArray[2][j] == i) {
+				return true;
+			}
+		}
+		if (gameArray[0][0] == i && gameArray[1][1] == i
+				&& gameArray[2][2] == i) {
+			return true;
+		}
+		if (gameArray[0][2] == i && gameArray[1][1] == i
+				&& gameArray[2][0] == i) {
+			return true;
+		}
+		return false;
+	}
+
+	private static void userTurn(int[][] gameArray) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Your Turn....");
+		System.out.println("Enter Position");
+		System.out.print("Row=");
+		int row = sc.nextInt() - 1;
+		System.out.print("Column=");
+		int cols = sc.nextInt() - 1;
+		if (isValidTurn(gameArray, row, cols)) {
+			gameArray[row][cols] = 0;
+		} else {
+			userTurn(gameArray);
+		}
+
+	}
+
+	private static boolean isValidTurn(int[][] gameArray, int row, int cols) {
+		if (gameArray[row][cols] == -1) {
+			return true;
+		}
+		return false;
 	}
 	
 	public static void arrayTwoDim(int rows,int columns){
@@ -389,10 +548,6 @@ public class Utility {
 		}
 	}
 	
-	
-	
-	
-
 	public static <E> ArrayList<E> generateArray(int size,int choice){
 		Scanner scan = new Scanner(System.in);
 		ArrayList<Integer> arr=new ArrayList<>();
@@ -435,12 +590,13 @@ public class Utility {
 }
 	
 	///generic code of 1 d array display
-		public static <generic> void arrayDisplayOneDimGeneric(ArrayList<ArrayList<generic>> array,int size) {
+	public static <generic> void arrayDisplayOneDimGeneric(ArrayList<ArrayList<generic>> array,int size) {
 				for (int i = 0; i < size; i++) {
 				System.out.format("%2d ", array.get(i));
 				System.out.println();
 			}
 	}
+	
 	public static <T extends Iterable<T>> void arrayDisplayOneDimGeneric1(T[] list) {
 			for (Object element : list){
 	            System.out.println(element);
@@ -485,40 +641,30 @@ public class Utility {
 	      System.out.println(numFind + " is not present in the list.\n ... searching done by binary search");
 	  }
 	
-	public static void binarySearchChar(char []array,char variable){
-		int n=array.length;
-		int first  = 0;
-		int last   = n - 1;
-		int middle = (first + last)/2;
-		boolean ispresent=false;
-		if (array[first]==variable){
-			System.out.println("found at "+first+"th location");
-			ispresent=true;
+	/********
+	 * 
+	 * @param array , element
+	 * @param 
+	 * @return isPresent boolean
+	 */
+	public static <T extends Comparable<T>>boolean binarySearchGeneric(T arr[], T str) {
+		int low = 0;
+		boolean isPresent = false;
+		int high = arr.length - 1;
+		int mid = high / 2;
+		while (high >= low) {
+			if (arr[mid].compareTo(str)==0) {
+				isPresent = true;
+				break;
+			} else if (arr[mid].compareTo(str) < 0) {
+				low = mid + 1;
+				mid = (low + high) / 2;
+			} else if (arr[mid].compareTo(str) > 0) {
+				high = mid - 1;
+				mid = (low + high) / 2;
 			}
-		else if(array[last] ==variable){
-			System.out.println("found at "+last+"th location");
-			ispresent=true;
-			}
-		
-	    while( first <= last ){
-	      if ( array[middle] != variable )
-	        first = middle + 1;    
-	      else if ( array[middle] == variable ) 
-	      {
-	        System.out.println(variable + " found at location " + (middle + 1) + "th. by Binary Seach");
-	        ispresent=true;
-	        break;
-	      }
-	      else{
-	         last = middle - 1 ;
-	         middle = (first + last)/2;
-	         ispresent=false;
-	         }
-	      
-	   }
-	   if (first == last && ispresent==false)
-	      System.out.println(variable + " is not present in the list.\n ... searching done by binary search");
-	 
+		}
+		return isPresent;
 	}
 	
 	public static int[] insertionSortInt(int [] a,int num){
@@ -563,7 +709,8 @@ public class Utility {
 		}
 		return array;
 	}
-	 public <T extends Comparable<T>> void doInsertionSort(T[] input) {
+	
+	public <T extends Comparable<T>> void doInsertionSort(T[] input) {
 	        if (input == null) {
 	            throw new RuntimeException("Input array cannot be null");
 	        }
@@ -588,29 +735,12 @@ public class Utility {
 	            input[j] = temp;
 	        }
 	 }	    
-	 /*public <T extends Comparable<T>> void doBubbleSortGeneric(T[] array) {
-	        if (array == null) {
-	            throw new RuntimeException("array array cannot be null");
-	        }
-	        int n = array.length;
-	        if (n == 1) return;
-	        int i,j;
-	        T temp = null;
-	        for(i=1;i<n-1;i++){
-				for(j=1;j<=n-1;j++){
-					if(temp.compareTo(array[j-1])>temp.compareTo(array[j])){
-						temp=array[j-1];
-						array[j-1]=array[j];
-						array[j]=temp;
-					}
-				}
-			}
-	 }*/
-		 public static <E> void doBubbleSortGeneric(E[] unsorted) {
-		        for(int iter =1; iter< unsorted.length; iter++){
-		            for(int inner = 0; inner < (unsorted.length - iter); inner ++){
+		 
+	public static <T> void doBubbleSortGeneric(T[] unsorted) {
+		        for(int i =1; i< unsorted.length; i++){
+		            for(int inner = 0; inner < (unsorted.length - i); inner ++){
 		                if((((Comparable) (unsorted[inner])).compareTo(unsorted[inner+1])) > 0){
-		                    E tmp = unsorted[inner];
+		                    T tmp = unsorted[inner];
 		                    unsorted[inner] = unsorted[inner + 1];
 		                    unsorted[inner + 1] = tmp;
 		                }                
@@ -618,19 +748,296 @@ public class Utility {
 		        }
 			
 		 }    
-	 public static <T> void printArray(T[] input) {
+	
+	public static <T> void printArray(T[] input) {
 	        for(T elem: input) {
 	            System.out.print(elem);
 	            System.out.print(" ");
 	        }
 	        System.out.println();
 	    }
-}
+		
+	public static void binarySearchPredict(int left,int right) {
+		// TODO Auto-generated method stub
+		Scanner input = new Scanner(System.in);
+		System.out.println("is guessed number between "+left+"-"+right);
+		char check=input.next().charAt(0);
+		int middle=right;
+		int mid=middle;
+		 middle = (left + right)/2;
+		 System.out.println("is guessed number betweenSBHJFDJKNDKMD"+check);
+		if( check== 'y'){
+			System.out.println("is guessed number between "+left+"-"+right+":left l \n or\n"+(right+1)+" to "+mid+"right r");
+			check=input.next().charAt(0);
+			if(check=='l'){
+				mid=(left+right)/2;
+				binarySearchPredict(left,middle);
+			}
+			else if(check=='r'){
+				mid=((mid+1)+right)/2;
+			binarySearchPredict(right,middle+1);
+			}
+		}
+		else  System.out.println("exit");
+	}
 
+	public static ArrayList<String> getFile() throws IOException {
+	File f = new File("/home/bridgeit/Desktop/cities.txt");
+	ArrayList<String> lines = get_arraylist_from_file(f);
+		for(int x = 0; x < lines.size(); x++){
+			System.out.println(lines.get(x));
+	    }
+        System.out.println("_______________sorting  list__________");
+        Collections.sort(lines);
+		return lines;
+	    }
+	
+	public static void findWordFromFile(ArrayList<String> lines, String sc) {
+	Utility u=new Utility();
+		 /*if(lines.contains(sc)){
+			 System.out.println("FOUND"); 
+		 }
+		 else
+		 System.out.println("FOUND"); */
+	String [] array = new String[lines.size()];
+	lines.toArray(array);
+	if (u.binarySearchGeneric(array,sc)==true) {
+		System.out.println("String  is present");
+	} else {
+		System.out.println("String is not present");
+	}
 		
+	}
 		
+//scan file till file has words add in list and send list back	
+	public static ArrayList<String> get_arraylist_from_file(File f) 
+        throws FileNotFoundException {
+        Scanner s;
+        ArrayList<String> list = new ArrayList<String>();
+        s = new Scanner(f);
+        while (s.hasNext()) {
+            list.add(s.next());
+        }
+        s.close();
+        return list;
+    }
+	
+	public static void giveChange(int noteCounts[], int change, int pos) {
+		int notes[] = { 1000, 500, 100, 50, 10, 2, 1 };
+		if (pos < notes.length) {
+			if (change < notes[pos]) {
+				giveChange(noteCounts, change, ++pos);
+			} else {
+				change = change - notes[pos];
+				noteCounts[pos]++;
+				giveChange(noteCounts, change, pos);
+			}
+		}
+	}
+
+	/**
+	 * @param no parameter 
+	 * @return return long start Time
+	 *
+	 */
+	
+	public static long 	startStopWatch() {
+		// TODO Auto-generated method stub
+		 startTime = System.currentTimeMillis();
+		 return startTime;
+	}
+	 public static long startTime,stopTime;
+/**
+ * 
+ * @param startTime
+ * @return elapsed time i.e stopTime - startTime
+ */
+    public static long elapsedTime(long startTime) {
+        stopTime = System.currentTimeMillis();
+        return (stopTime - startTime);
+    }
+
+    public static String[] mergeSort(String[] arr) {
+		String firstArray[] = new String[arr.length / 2];
+		String secondArray[] = new String[arr.length - (arr.length / 2)];
+		int j = 0;
+		if (arr.length == 1) {
+			return arr;
+		}
+		for (int i = 0; i < firstArray.length; i++) {
+			firstArray[i] = arr[i];
+		}
+		for (int i = firstArray.length; i < arr.length; i++) {
+			secondArray[j] = arr[i];
+			j++;
+		}
+		firstArray = mergeSort(firstArray);
+		secondArray = mergeSort(secondArray);
+		String[] returnArray = new String[arr.length];
+		int firstIndex = 0, secondIndex = 0;
+		for (int i = 0; i < returnArray.length; i++) {
+			if (secondIndex == secondArray.length) {
+				returnArray[i] = firstArray[firstIndex];
+				firstIndex++;
+			} else if (firstIndex == firstArray.length) {
+				returnArray[i] = secondArray[secondIndex];
+				secondIndex++;
+			} else if (firstArray[firstIndex]
+					.compareTo(secondArray[secondIndex]) > 0) {
+				returnArray[i] = secondArray[secondIndex];
+				secondIndex++;
+			} else {
+				returnArray[i] = firstArray[firstIndex];
+				firstIndex++;
+			}
+		}
+
+		return returnArray;
+
+	}
+/**
+ * 
+ * @param int first,int last
+ * @return 
+ * find guessed Number
+ */
+	public static void guessNumber(int first, int last) {
 		
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		//binary logic
+		int middle = (first + last) / 2;
+		if (first < last) {
+			System.out.println("Is your number between " + first + " and "
+					+ middle + " [y/n]:");
+			char choice = sc.next().charAt(0);
+			if (choice == 'y' || choice == 'Y') {
+				guessNumber(first, middle);
+
+			} else {
+				guessNumber(middle + 1, last);
+			}
+		} else if (first == last) {
+			System.out.println("Number is " + last);
+		}
+		sc.close();
+	}
+
+	/**
+	 * @param int n
+	 * return void
+	 * convert integer number to binary
+	 * calculate sum of binary array
+	 * @return binary ArrayList
+	 */
+	public static ArrayList toBinary(int n){
+		int power = 1;
 		
+		int ctr=0;
+		ArrayList array = new ArrayList(32);
+		for(int i=0;i<32;i++){
+	        	array.add(0);
+	        }
+
+		while (power <= n/2) {
+	            power *= 2;
+	        }
+	        // check for presence of powers of 2 in n, from largest to smarraylest
+	        while (power > 0) {
+	            // power is not present in n //power will be 1 2 4 8 
+	            if (n < power) {
+	            	
+	                System.out.print(0);
+	                array.remove(0);
+	               array.add(0);	               
+	            }
+	            // power is present in n, so subtract power from n
+	            else {
+	                System.out.print(1);
+	                n -= power;
+	               array.add(1);	             
+	            }
+	            // next smarraylest power of 2
+	            power /= 2;
+	        }
+	       
+	 
+	        System.out.println(array);
+	        /*
+	      	we do not get equivalent binary in array list so reverse arrayList
+	    	 * because 2pow0 is given to highest position 
+	    	 * 2pow0 starts for lowest position
+	    	 **/
+	    	Collections.reverse(array);
+	    	System.out.println("reversed array"+array);
+	    	int size=array.size();
+	        int low=0;
+	    	int high=(array.size())-1;
+	    	int sum=Utility.getSumNibble(array);
+	    	System.out.println("sum before swap="+sum);
+	      return array;
+	}
+	/**
+	 * 
+	 * @param arrayList array
+	 * 
+	 */
+	public static void swapNibbles(ArrayList array) {
+	// TODO Auto-generated method stub
 		
+	int size=(array.size());
+	int low=0;
+	int high=(array.size())-1;
+	int mid=(low+high)/2;
+	int total,numh,numl;
+	ArrayList arrswap = new ArrayList(size);
+	ArrayList arrnh = new ArrayList(size);
+	ArrayList arrnl = new ArrayList(size);
+	System.out.println("_______mid  ="+mid);
+	arrnl=Utility.getNibble(array,mid+1,high);
+	arrnh=Utility.getNibble(array,low,mid);
+	arrswap.addAll(arrnl);
+	arrswap.addAll(arrnh);
+	System.out.println("new swap array ="+arrswap);
+	total=getSumNibble(arrswap);
+	System.out.println("total after swap "+total);
 		
-		
+}
+/**
+ * 
+ * @param array having binary values
+
+ * @param low
+ * @param mid
+ * @return total (eg 01000110 which is 70 in decimal.)
+ * return 70
+ * @author ragini
+ */
+	public static ArrayList  getNibble(ArrayList array,int a, int b) {
+	ArrayList arr = new ArrayList(b);
+	int retval;
+	int sum=0;
+	for(int i=a;i<=b;i++){
+		retval=(int) array.get(i);
+		arr.add(retval);
+	}
+	System.out.println(arr);
+	
+	sum=Utility.getSumNibble(arr);
+	return arr;
+	}
+	public static int getSumNibble(ArrayList array) {
+		int retval;
+		int sum=0;
+		for(int i=0;i<=array.size()-1;i++){
+			retval=(int) array.get(i);
+				if(retval==1){
+				sum=sum +(int) (Math.pow(2,i));
+			}
+				
+		}
+			return sum;
+	}
+    //Static function that calculate the date falls on
+    
+}

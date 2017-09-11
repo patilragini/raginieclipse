@@ -16,8 +16,9 @@ public class AnagramCheck{
 	public static Scanner scan=new Scanner(System.in);
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String str1=scan.next();
-		String str2=scan.next();
+		System.out.println("enter two strings");
+		String str1=scan.nextLine();
+		String str2=scan.nextLine();
 		Utility.anagramChecker(str1,str2);
 	}
 }

@@ -1,8 +1,5 @@
 /****************************************************************************** 
- *  Purpose: given N distinct Coupon Numbers, how many random numbers do you need to 
-	generate distinct coupon number? This program simulates this random process.
-
- *
+ *  Purpose: given N distinct Coupon Numbers, 
  *  @author  Ragini Patil
  *  @version 1.0
  *  @since   29-08-2017

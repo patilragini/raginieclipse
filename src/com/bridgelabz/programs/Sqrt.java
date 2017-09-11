@@ -17,6 +17,11 @@ package com.bridgelabz.programs;
 import com.bridgelabz.util.Utility;
 
 
+/**
+ * 
+ * @author ragini 
+ *
+ */
 public class Sqrt { 
 	static double number;
     public static void main(String[] args) { 

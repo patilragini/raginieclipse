@@ -1,9 +1,17 @@
+/****************************************************************************** 
+ *  @author  Ragini Patil
+ *  @version 1.0
+ *  @since   29-08-2017
+ *
+ ******************************************************************************/
 package com.bridgelabz.programs;
 import java.util.*;
 import com.bridgelabz.util.Utility;
 
 
-public class InsertionSortGeneric { public static void main(String[] args) { Scanner input = new Scanner(System.in); //String[] stringArray = {"Hello", "World", "Hello"};
+public class InsertionSortGeneric { 
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in); //String[] stringArray = {"Hello", "World", "Hello"};
 	       // Integer[] intArray = {1,4,9,0,8,7,9,6};
 			Utility is = new Utility();
 			System.out.println("insertion sort /n Choose the type of Array:");
