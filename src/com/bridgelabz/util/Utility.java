@@ -4,14 +4,21 @@
  *
  ******************************************************************************/
 package com.bridgelabz.util;
-import java.awt.Container;
-import java.io.File;
+import java.io.File.*;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
-import java.util.ArrayList;
+
 import javax.lang.model.element.Element;
 import javax.print.attribute.standard.RequestingUserName;
+import javax.swing.SortingFocusTraversalPolicy;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +28,7 @@ import java.io.FileNotFoundException;
  */
 
 
+@SuppressWarnings("unused")
 public class Utility {
 	
 	/**
@@ -215,6 +223,7 @@ public static void printArrayChar(char [] array){
 		for(int i=0;i<num;i++){
 			array[i]= scanner.nextInt();
 		}
+		scanner.close();
 		return array;
 	}
 	//create array of character and return char array 
@@ -223,7 +232,8 @@ public static void printArrayChar(char [] array){
 			String word ;
 			System.out.println("enter the string");
 			word=scanner.next();
-	        char crr[]=word.toCharArray();  
+	        char crr[]=word.toCharArray(); 
+	    	scanner.close();
 	        return crr; //return char array
 		}
 	//create array of c String and return String array 
@@ -237,6 +247,7 @@ public static void printArrayChar(char [] array){
 		            words[i] = scanner.nextLine();
 		        }
 				System.out.println(words[2]);
+				scanner.close();
 		        return words;//return array of words
 			}
 	
@@ -521,7 +532,7 @@ public static void printArrayChar(char [] array){
 		} else {
 			userTurn(gameArray);
 		}
-
+		sc.close();
 	}
 
 	private static boolean isValidTurn(int[][] gameArray, int row, int cols) {
@@ -546,15 +557,17 @@ public static void printArrayChar(char [] array){
 		    }
 		    System.out.println();
 		}
+		scanner.close();
 	}
 	
 	public static <E> ArrayList<E> generateArray(int size,int choice){
 		Scanner scan = new Scanner(System.in);
 		ArrayList<Integer> arr=new ArrayList<>();
-		 for(int i=0;i<size;i++){
+		for(int i=0;i<size;i++){
 			 arr.add(scan.nextInt());
 		 }
-		 System.out.println(arr);
+		System.out.println(arr);
+		scan.close();
 		return null;
 		
 	}
@@ -576,7 +589,9 @@ public static void printArrayChar(char [] array){
 				else
 					twoDArray.get(i).add((T) Boolean.valueOf(scan.nextBoolean()));
 		}
+		scan.close();
 		return (T) twoDArray;
+	
 	}
 	
 	///generic code of 2 d array display
@@ -736,6 +751,7 @@ public static void printArrayChar(char [] array){
 	        }
 	 }	    
 		 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> void doBubbleSortGeneric(T[] unsorted) {
 		        for(int i =1; i< unsorted.length; i++){
 		            for(int inner = 0; inner < (unsorted.length - i); inner ++){
@@ -779,6 +795,7 @@ public static void printArrayChar(char [] array){
 			}
 		}
 		else  System.out.println("exit");
+		input.close();
 	}
 
 	public static ArrayList<String> getFile() throws IOException {
@@ -792,15 +809,13 @@ public static void printArrayChar(char [] array){
 		return lines;
 	    }
 	
+	@SuppressWarnings("static-access")
 	public static void findWordFromFile(ArrayList<String> lines, String sc) {
 	Utility u=new Utility();
-		 /*if(lines.contains(sc)){
-			 System.out.println("FOUND"); 
-		 }
-		 else
-		 System.out.println("FOUND"); */
+		 
 	String [] array = new String[lines.size()];
 	lines.toArray(array);
+	
 	if (u.binarySearchGeneric(array,sc)==true) {
 		System.out.println("String  is present");
 	} else {
@@ -930,11 +945,12 @@ public static void printArrayChar(char [] array){
 	 * calculate sum of binary array
 	 * @return binary ArrayList
 	 */
-	public static ArrayList toBinary(int n){
+
+	public static ArrayList<Integer> toBinary(int n){
 		int power = 1;
 		
 		int ctr=0;
-		ArrayList array = new ArrayList(32);
+		ArrayList<Integer> array = new ArrayList<Integer>(32);
 		for(int i=0;i<32;i++){
 	        	array.add(0);
 	        }
@@ -1038,6 +1054,164 @@ public static void printArrayChar(char [] array){
 		}
 			return sum;
 	}
-    //Static function that calculate the date falls on
-    
+	/**
+	 * 
+	 * @param  string word
+	 * @throws IOException
+	 * @author ragini
+	 * @description		search word in file if not found then add;
+	 * 			if found remove  using linkedlist .
+	 */
+   public static void searchWordFromFile(String word) throws IOException {
+	   
+	   File f = new File("/home/bridgeit/Desktop/cities.txt");
+	   LinkedList<String> lines = get_linkedList_from_file(f);
+		for(int x = 0; x < lines.size(); x++){
+			System.out.println(lines.get(x));
+	    }
+		
+
+		if(lines.contains(word)) {
+			System.out.println("Word Found \nRemoving word from list");
+			lines.remove(word);
+		}	
+		else {
+			System.out.println("Word Not Found\nAdding word to list");
+			//word is added in the last node of linkedlist
+			lines.add(word);
+		}
+	
+		FileWriter file=new FileWriter(f);
+		PrintWriter writeToFile=new PrintWriter(file);
+		for(String newword : lines) 
+			writeToFile.write(newword+" ");
+			file.close();
+			System.out.println(lines);
+	}
+
+public  static LinkedList<String> get_linkedList_from_file(File f) throws FileNotFoundException {
+	        Scanner s=new Scanner(f);
+	        LinkedList<String> list = new LinkedList<String>();
+	        while (s.hasNext()) {
+	         list.add(s.next());
+	        }
+	        s.close();
+	        return list;
 }
+
+public static void searchIntFromFile(int number) throws IndexOutOfBoundsException, IOException{
+	
+	// TODO Auto-generated method stub
+	
+	File filePath = new File("/home/bridgeit/Desktop/number.txt");
+	@SuppressWarnings("resource")
+	Scanner scanner = new Scanner(filePath);
+	List<Integer> list = new ArrayList<>();
+	while (scanner.hasNext()) {
+	    if (scanner.hasNextInt()) {
+	        list.add(scanner.nextInt());
+	    } else {
+	        scanner.next();
+	    }	         
+	}
+	Collections.sort(list);
+	System.out.println(list);
+	  if(list.contains(number)) {
+		  System.out.println("Number Found \nRemoving number from list");
+		  //list.remove(number)-> removes index 
+		  //to remove specific number need conversion
+		  list.remove(new Integer (number));
+		  System.out.println(list);
+	  }	
+	  else {
+		  System.out.println("Number Not Found\nAdding number to list");
+		  //word is added in the last node of linkedlist
+		  list.add(number);
+		  Collections.sort(list);
+		  System.out.println(list);
+	  }
+			FileWriter file=new FileWriter(filePath);
+		PrintWriter writeToFile=new PrintWriter(file);
+		for(Integer newint : list) 
+			writeToFile.write(newint+" ");
+			file.close();
+			System.out.println(list);
+	}
+private static int numDays = 0;
+private static int h = 0;
+public static boolean leap(int year)
+{
+    if(((year % 4 == 0) && !(year % 100 == 0)) || (year % 400 == 0))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+public static void firstDayOfYear(int year)
+{
+    int month = 13;
+    year--;
+    h = (1 + (int)(((month + 1) * 26) / 10.0) + year + (int)(year / 4.0) + 6 * (int)(year / 100.0) + (int)(year / 400.0)) % 7;
+    String dayName = "";
+    switch(h)
+    {
+        case 0: dayName = "Saturday"; break;
+        case 1: dayName = "Sunday"; break;
+        case 2: dayName = "Monday"; break;
+        case 3: dayName = "Tuesday"; break;
+        case 4: dayName = "Wednesday"; break;
+        case 5: dayName = "Thursday"; break;
+        default: dayName = "Friday"; break;
+    }
+    System.out.println("The first day of the year is " + dayName);
+}
+public static void firstDayOfMonth(int month, int year)
+{
+    if(month == 1 || month == 2)
+    {
+        month += 12;
+        year--;
+    }
+    h = (1 + (int)(((month + 1) * 26) / 10.0) + year + (int)(year / 4.0) + 6 * (int)(year / 100.0) + (int)(year / 400.0)) % 7;
+    String dayName = "";
+    switch(h)
+    {
+        case 0: dayName = "Saturday"; break;
+        case 1: dayName = "Sunday"; break;
+        case 2: dayName = "Monday"; break;
+        case 3: dayName = "Tuesday"; break;
+        case 4: dayName = "Wednesday"; break;
+        case 5: dayName = "Thursday"; break;
+        default: dayName = "Friday"; break;
+    }
+    System.out.println("The first day of the month is " + dayName);
+}
+public static void numDaysInMonth(int month, int year)
+{
+    int[] days = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    if (month == 2 && leap(year)) days[month] = 29;
+    numDays = days[month];
+    System.out.println("The number of days in the month is " + numDays);
+}
+public static void printCal(int month, int year)
+{
+    String[] monthNames = {"","January","February","March","April","May","June","July","August","September","October","November","December"};
+
+    System.out.println("    " + monthNames[month] + " " + year);
+    System.out.println("Su Mo Tu We Th Fr Sa");
+    for (int i = 0; i < h - 1; i++)
+        System.out.print("   ");
+    for (int i = 1; i <= numDays; i++)
+    {
+        System.out.printf("%2d ", i);
+        if (((i + h - 1) % 7 == 0) || (i == numDays)) System.out.println();
+    }
+}
+
+}
+   
+   

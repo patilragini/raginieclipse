@@ -11,6 +11,7 @@ import com.bridgelabz.util.Utility;
 
 public class BinarySearchGeneric {
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
@@ -72,8 +73,6 @@ public class BinarySearchGeneric {
 					System.out.println("FOUND");
 				}
 				else System.out.println("NOT FOUND");
-		
+				input.close();
 	}
-
-
 }
